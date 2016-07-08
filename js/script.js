@@ -87,7 +87,7 @@ for (i=0 ; i<8 ; i++) {
         today = new Date();
         day = today.getDate();
         var olderDate = new Date(today.setDate(day - i)); //Setting Dates
-        dateArray.push( ('0' + elOlderDate.getDate()).slice(-2) + '/' + ('0' + (elOlderDate.getMonth()+1)).slice(-2) + '/' + elOlderDate.getFullYear());
+        dateArray.push( ('0' + olderDate.getDate()).slice(-2) + '/' + ('0' + (olderDate.getMonth()+1)).slice(-2) + '/' + olderDate.getFullYear());
         date = dateArray[i];
     }
 
