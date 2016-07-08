@@ -60,12 +60,30 @@ function success(pos){
       var longitude = pos.coords.longitude;
       console.log("latitude ", latitude);
       console.log("longitude ", longitude);
-      // if((latitude == 8.5499495)&&(longitude == 76.87785)) {
-      //     elDateArray.push( ('0' + elOlderDate.getDate()).slice(-2) + '/' + ('0' + (elOlderDate.getMonth()+1)).slice(-2) + '/' + elOlderDate.getFullYear());
-      // }
-      // else {
-      //     elDateArray.push(('0' + (elOlderDate.getMonth()+1)).slice(-2) + '/' + ('0' + elOlderDate.getDate()).slice(-2) + '/' +  elOlderDate.getFullYear());
-      // }
+      var today;
+      var dateArray = [];
+    
+      for (i=0 ; i<8 ; i++) {
+        today = new Date();
+        day = today.getDate();
+        var olderDate = new Date(today.setDate(day - i)); //Setting Dates
+        if((latitude == 8.5499495)&&(longitude == 76.87785)) {
+            elDateArray.push( ('0' + elOlderDate.getDate()).slice(-2) + '/' + ('0' + (elOlderDate.getMonth()+1)).slice(-2) + '/' + elOlderDate.getFullYear());
+        }
+        else {
+          elDateArray.push(('0' + (elOlderDate.getMonth()+1)).slice(-2) + '/' + ('0' + elOlderDate.getDate()).slice(-2) + '/' +  elOlderDate.getFullYear());
+        }
+        date = dateArray[i];
+      }
+
+      for (j=7 ; j >=0; j--) {
+          var opt = document.createElement("option");
+          opt.text = dateArray[j];
+          opt.value = j;
+          var select =document.getElementById("dateList");
+          select.appendChild(opt);
+      }
+      select.selectedIndex = 7;
   }
 
   function error(err) {
@@ -81,26 +99,7 @@ function geoFindLocation() {
 // Function to display last seven dates in Date Select box
 function defaultDate(){
 
-    var today;
-    var dateArray = [];
-    var offset = new Date().getTimezoneOffset();
     
-for (i=0 ; i<8 ; i++) {
-        today = new Date();
-        day = today.getDate();
-        var olderDate = new Date(today.setDate(day - i)); //Setting Dates
-        dateArray.push( ('0' + olderDate.getDate()).slice(-2) + '/' + ('0' + (olderDate.getMonth()+1)).slice(-2) + '/' + olderDate.getFullYear());
-        date = dateArray[i];
-    }
-
-    for (j=7 ; j >=0; j--) {
-        var opt = document.createElement("option");
-        opt.text = dateArray[j];
-        opt.value = j;
-        var select =document.getElementById("dateList");
-        select.appendChild(opt);
-    }
-    select.selectedIndex = 7;
 }
 
 document.getElementById("submitBtn").addEventListener("click", function(event){
