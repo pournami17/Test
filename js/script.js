@@ -2,6 +2,7 @@
 window.onload = function(){
     defaultDate();
     enableBtn();
+    geoFindLocation();
 };
 
 loadJson('project.json',"projectList");
@@ -54,28 +55,40 @@ function loadSelect(populateList,divID){
   
 }
 
-function success(pos){
-      var latitude = pos.coords.latitude;
-      var longitude = pos.coords.longitude;
-      console.log("latitude ", latitude);
-      console.log("longitude ", longitude);
-      // if((latitude == 8.5499495)&&(longitude == 76.87785)) {
-      //     elDateArray.push( ('0' + elOlderDate.getDate()).slice(-2) + '/' + ('0' + (elOlderDate.getMonth()+1)).slice(-2) + '/' + elOlderDate.getFullYear());
-      // }
-      // else {
-      //     elDateArray.push(('0' + (elOlderDate.getMonth()+1)).slice(-2) + '/' + ('0' + elOlderDate.getDate()).slice(-2) + '/' +  elOlderDate.getFullYear());
-      // }
-  }
+// function success(pos){
+//       var latitude = pos.coords.latitude;
+//       var longitude = pos.coords.longitude;
+//       console.log("latitude ", latitude);
+//       console.log("longitude ", longitude);
+//       // if((latitude == 8.5499495)&&(longitude == 76.87785)) {
+//       //     elDateArray.push( ('0' + elOlderDate.getDate()).slice(-2) + '/' + ('0' + (elOlderDate.getMonth()+1)).slice(-2) + '/' + elOlderDate.getFullYear());
+//       // }
+//       // else {
+//       //     elDateArray.push(('0' + (elOlderDate.getMonth()+1)).slice(-2) + '/' + ('0' + elOlderDate.getDate()).slice(-2) + '/' +  elOlderDate.getFullYear());
+//       // }
+//   }
 
-  function error(err) {
-      console.warn('ERROR (' + err.code + '):' + err.message);
-  }
+//   function error(err) {
+//       console.warn('ERROR (' + err.code + '):' + err.message);
+//   }
 
 //Function to find user location
 function geoFindLocation() {
-  navigator.geolocation.getCurrentPosition(success, error);
+  if (navigator.geolocation) {
+                   navigator.geolocation.getCurrentPosition(function(position) {
+                       $.getJSON('http://api.geonames.org/countryCode', {
+                           lat : position.coords.latitude,
+                           lng : position.coords.longitude,
+                           type : 'JSON',
+                           username : 'demo'
+                       }, function(result) {
+                           alert(result.countryName);
+                       });
+                   });
+               }
 }
 
+    
 // Function to display last seven dates in Date Select box
 function defaultDate(){
 
