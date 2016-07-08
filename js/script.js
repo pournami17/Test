@@ -63,7 +63,7 @@ function success(pos){
       var longitude = pos.coords.longitude;
       console.log("latitude ", latitude);
       console.log("longitude ", longitude);
-      codeLatLng(lat, lng);
+      codeLatLng(latitude, longitude);
       var today;
       var dateArray = [];
     
