@@ -195,6 +195,7 @@ function submitStatusForm() {
         }
         document.getElementById('displayLog').innerHTML = setContent;
         clearText();
+        document.getElementById('counter').value = 20;
         enableBtn();
     }
     
