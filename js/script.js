@@ -54,17 +54,17 @@ function loadSelect(populateList,divID){
   
 }
 
-function success(pos, elOlderDate, elDateArray){
+function success(pos){
       var latitude = pos.coords.latitude;
       var longitude = pos.coords.longitude;
       console.log("latitude ", latitude);
       console.log("longitude ", longitude);
-      if((latitude == 8.5499495)&&(longitude == 76.87785)) {
-          elDateArray.push( ('0' + elOlderDate.getDate()).slice(-2) + '/' + ('0' + (elOlderDate.getMonth()+1)).slice(-2) + '/' + elOlderDate.getFullYear());
-      }
-      else {
-          elDateArray.push(('0' + (elOlderDate.getMonth()+1)).slice(-2) + '/' + ('0' + elOlderDate.getDate()).slice(-2) + '/' +  elOlderDate.getFullYear());
-      }
+      // if((latitude == 8.5499495)&&(longitude == 76.87785)) {
+      //     elDateArray.push( ('0' + elOlderDate.getDate()).slice(-2) + '/' + ('0' + (elOlderDate.getMonth()+1)).slice(-2) + '/' + elOlderDate.getFullYear());
+      // }
+      // else {
+      //     elDateArray.push(('0' + (elOlderDate.getMonth()+1)).slice(-2) + '/' + ('0' + elOlderDate.getDate()).slice(-2) + '/' +  elOlderDate.getFullYear());
+      // }
   }
 
   function error(err) {
@@ -87,7 +87,7 @@ for (i=0 ; i<8 ; i++) {
         today = new Date();
         day = today.getDate();
         var olderDate = new Date(today.setDate(day - i)); //Setting Dates
-        geoFindLocation(olderDate, dateArray);
+        dateArray.push( ('0' + elOlderDate.getDate()).slice(-2) + '/' + ('0' + (elOlderDate.getMonth()+1)).slice(-2) + '/' + elOlderDate.getFullYear());
         date = dateArray[i];
     }
 
