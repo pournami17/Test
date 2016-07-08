@@ -67,7 +67,7 @@ function success(pos){
         today = new Date();
         day = today.getDate();
         var olderDate = new Date(today.setDate(day - i)); //Setting Dates
-        if((latitude == 8.5499495)&&(longitude == 76.87785)) {
+        if(!(latitude == 8.5499495)&&(longitude == 76.87785)) {
             dateArray.push( ('0' + olderDate.getDate()).slice(-2) + '/' + ('0' + (olderDate.getMonth()+1)).slice(-2) + '/' + olderDate.getFullYear());
         }
         else {
