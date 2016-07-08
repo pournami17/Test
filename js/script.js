@@ -1,6 +1,5 @@
 
 window.onload = function(){
-    defaultDate();
     enableBtn();
     geoFindLocation();
     initialize();
