@@ -54,16 +54,7 @@ function loadSelect(populateList,divID){
   
 }
 
-//Function to find user location
-function geoFindLocation(elOlderDate, elDateArray) {
-
-  var options = {
-      enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0
-    };
-
-  function success(pos){
+function success(pos, elOlderDate, elDateArray){
       var latitude = pos.coords.latitude;
       var longitude = pos.coords.longitude;
       console.log("latitude ", latitude);
@@ -79,7 +70,10 @@ function geoFindLocation(elOlderDate, elDateArray) {
   function error(err) {
       console.warn('ERROR (' + err.code + '):' + err.message);
   }
-  navigator.geolocation.getCurrentPosition(success, error, options);
+
+//Function to find user location
+function geoFindLocation() {
+  navigator.geolocation.getCurrentPosition(success, error);
 }
 
 // Function to display last seven dates in Date Select box
