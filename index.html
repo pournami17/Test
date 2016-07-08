@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sample Project</title>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">	
+	<link rel="stylesheet" type="text/css" href="css/style.css">		
+</head>
+<body>
+	<header class="navbar">
+      	<div class="container">
+	        <div class="navbar-header">
+	          <a class="navbar-brand" href="#"><img src="logo.png" alt="Space"></a>
+	        </div>
+      	</div>
+    </header>
+	<div class="container">
+		<div class="well">
+			<form id="dailyStatusForm" class="statusForm" method="POST" action="#">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="row">
+							<div class="col-md-3 marginBottom">
+								<label>DATE</label>
+								<select id = "dateList" class="selectLength"></select>
+							</div>
+							<div class="col-md-3 marginBottom">
+								<label>PROJECTS</label>
+								<select id="projectList" class="selectLength"></select>
+							</div>
+							<div class="col-md-3 marginBottom">
+								<label>ACTIVITY TYPE</label>
+								<select id="activityList" class="selectLength"></select>
+							</div>
+							<div class="col-md-3 marginBottom">
+								<label>TIME SPENT</label>
+									<select id="hours">
+										<option value="0">00</option>
+						                <option value="1">01</option>
+						                <option value="2">02</option>
+						                <option value="3">03</option>
+						                <option value="4">04</option>
+						                <option value="5">05</option>
+						                <option value="6">06</option>
+						                <option value="7">07</option>
+						                <option value="8" selected>08</option>
+						                <option value="9">09</option>
+						                <option value="10">10</option>
+						                <option value="11">11</option>
+						                <option value="12">12</option>
+						                <option value="13">13</option>
+						                <option value="14">14</option>
+						                <option value="15">15</option>
+						                <option value="16">16</option>
+									</select>
+									<select id="minutes">
+										<option value="00">00</option>
+						                <option value="15">15</option>
+						                <option value="30">30</option>
+						                <option value="45">45</option>
+									</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="row">
+							<div class="col-md-6">
+								<label>Activity Description</label>
+								<div>
+									<span>Remaining Characters: </span>
+									<input disabled  maxlength="3" size="3" value="20" id="counter" class="counter">
+								</div>
+								<textarea rows="5" name="message" id="message" placeholder="Use T# or t# in your description to indicate Redmine ticket/task. For example : T#1234"></textarea>
+								<em id="errorMsg">Please enter text</em>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="saveBtnCnt text-center">
+					<input type="submit" name="saveBtn" value="Save" id="submitBtn" class="btn btn-primary">
+				</div>
+			</form>
+		</div>
+		<div class="displayEntry" id="displayEntry">
+			<h5>MY HISTORY</h5>
+			<div class="displayLog" id="displayLog" >
+				<div class="noResults" id="noResults">NO RESULTS TO DISPLAY</div>
+			</div>
+		</div>
+	</div>
+	<footer class="footer">
+      	<div class="container"></div>
+    </footer>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>
