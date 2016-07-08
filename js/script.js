@@ -68,10 +68,10 @@ function success(pos){
         day = today.getDate();
         var olderDate = new Date(today.setDate(day - i)); //Setting Dates
         if((latitude == 8.5499495)&&(longitude == 76.87785)) {
-            elDateArray.push( ('0' + elOlderDate.getDate()).slice(-2) + '/' + ('0' + (elOlderDate.getMonth()+1)).slice(-2) + '/' + elOlderDate.getFullYear());
+            dateArray.push( ('0' + olderDate.getDate()).slice(-2) + '/' + ('0' + (olderDate.getMonth()+1)).slice(-2) + '/' + olderDate.getFullYear());
         }
         else {
-          elDateArray.push(('0' + (elOlderDate.getMonth()+1)).slice(-2) + '/' + ('0' + elOlderDate.getDate()).slice(-2) + '/' +  elOlderDate.getFullYear());
+          dateArray.push(('0' + (olderDate.getMonth()+1)).slice(-2) + '/' + ('0' + olderDate.getDate()).slice(-2) + '/' +  olderDate.getFullYear());
         }
         date = dateArray[i];
       }
