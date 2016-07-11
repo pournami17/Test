@@ -71,31 +71,36 @@ function success(pos){
 
       var latlng = new google.maps.LatLng(lat, lng);
       geocoder.geocode({'latLng': latlng}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-      console.log(results)
-        if (results[0]) {
-         //formatted address
-         console.log(results[0].formatted_address);
-        //find country name
-            for (var i=0; i<results[0].address_components.length; i++) {
-                for (var b=0;b<results[0].address_components[i].types.length;b++) {
-                    if (results[0].address_components[i].types[b] == "country") {
-                    
-                      country = results[0].address_components[i];
-                        break;
+          if (status == google.maps.GeocoderStatus.OK) {
+          console.log(results)
+            if (results[0]) {
+             //formatted address
+             console.log(results[0].formatted_address);
+            //find country name
+                for (var i=0; i<results[0].address_components.length; i++) {
+                    for (var b=0;b<results[0].address_components[i].types.length;b++) {
+                        if (results[0].address_components[i].types[b] == "country") {
+                        
+                          country = results[0].address_components[i];
+                            break;
+                        }
                     }
                 }
+            //country data
+            console.log(country.short_name + " " + country.long_name);
+            formatDate(country,dateArray);
+            } 
+            else {
+              console.log("No results found");
             }
-        //country data
-        console.log(country.short_name + " " + country.long_name);
-        } else {
-          console.log("No results found");
-        }
-      } else {
-        console.log("Geocoder failed due to: " + status);
-      }
-      
-    
+          } 
+          else {
+            console.log("Geocoder failed due to: " + status);
+          }
+      });
+  }
+
+  function formatDate(country,dateArray) {
       for (i=0 ; i<8 ; i++) {
         today = new Date();
         day = today.getDate();
@@ -117,7 +122,6 @@ function success(pos){
           select.appendChild(opt);
       }
       select.selectedIndex = 7;
-      });
   }
 
   function error(err) {
