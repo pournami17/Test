@@ -2,7 +2,6 @@
 window.onload = function(){
     enableBtn();
     geoFindLocation();
-    initialize();
 };
 
 loadJson('project.json',"projectList");
@@ -55,11 +54,7 @@ function loadSelect(populateList,divID){
   
 }
 
-function initialize(){
-    geocoder = new google.maps.Geocoder();
-}
-
-// Function to display last seven dates in Date Select box if geolocation is successful
+// Function to find country based on lat/long if geolocation is successful
 
 function success(pos){
       var lat = pos.coords.latitude;
@@ -69,6 +64,7 @@ function success(pos){
       var today;
       var dateArray = [];
 
+      geocoder = new google.maps.Geocoder();
       var latlng = new google.maps.LatLng(lat, lng);
       geocoder.geocode({'latLng': latlng}, function(results, status) {
           if (status == google.maps.GeocoderStatus.OK) {
@@ -100,6 +96,7 @@ function success(pos){
       });
   }
 
+// Function to format date and display last seven dates in Date Select box
   function formatDate(country,dateArray) {
       for (i=0 ; i<8 ; i++) {
         today = new Date();
