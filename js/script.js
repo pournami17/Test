@@ -81,7 +81,7 @@ function success(pos){
                 for (var b=0;b<results[0].address_components[i].types.length;b++) {
                     if (results[0].address_components[i].types[b] == "country") {
                     
-                      var country = results[0].address_components[i];
+                      country = results[0].address_components[i];
                         break;
                     }
                 }
@@ -94,7 +94,7 @@ function success(pos){
       } else {
         console.log("Geocoder failed due to: " + status);
       }
-      });
+      
     
       for (i=0 ; i<8 ; i++) {
         today = new Date();
@@ -117,6 +117,7 @@ function success(pos){
           select.appendChild(opt);
       }
       select.selectedIndex = 7;
+      });
   }
 
   function error(err) {
