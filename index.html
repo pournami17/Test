@@ -57,10 +57,10 @@
 						                <option value="16">16</option>
 									</select>
 									<select id="minutes">
-										<option value="00">00</option>
-						                <option value="15">15</option>
-						                <option value="30">30</option>
-						                <option value="45">45</option>
+										<option value="0">00</option>
+						                <option value="1">15</option>
+						                <option value="2">30</option>
+						                <option value="3">45</option>
 									</select>
 							</div>
 						</div>
@@ -71,11 +71,7 @@
 						<div class="row">
 							<div class="col-md-6">
 								<label>Activity Description</label>
-								<div>
-									<span>Remaining Characters: </span>
-									<input disabled  maxlength="3" size="3" value="20" id="counter" class="counter">
-								</div>
-								<textarea rows="5" name="message" id="message" placeholder="Use T# or t# in your description to indicate Redmine ticket/task. For example : T#1234"></textarea>
+								<textarea rows="5" name="message" id="message" maxlength="180" placeholder="Use T# or t# in your description to indicate Redmine ticket/task. For example : T#1234"></textarea>
 								<em id="errorMsg">Please enter text</em>
 							</div>
 						</div>
