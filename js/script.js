@@ -105,7 +105,7 @@ function success(pos){
         today = new Date();
         day = today.getDate();
         var olderDate = new Date(today.setDate(day - i)); //Setting Dates
-        if(country.long_name == "India") {
+        if(!(country.long_name == "India")) {
             dateArray.push( ('0' + olderDate.getDate()).slice(-2) + '/' + ('0' + (olderDate.getMonth()+1)).slice(-2) + '/' + olderDate.getFullYear());
         }
         else {
