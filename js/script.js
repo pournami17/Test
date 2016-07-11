@@ -1,10 +1,13 @@
 
 window.onload = function(){
-    defaultDate();
+    enableBtn();
+    geoFindLocation();
+    initialize();
 };
 
 loadJson('project.json',"projectList");
 loadJson('activityType.json',"activityList");
+
 
 var prevDate;
 var hoursBurned = 0;
@@ -52,41 +55,103 @@ function loadSelect(populateList,divID){
   
 }
 
-// Function to display last seven dates in Date Select box
+function initialize(){
+    geocoder = new google.maps.Geocoder();
+}
 
-function defaultDate(){
+// Function to display last seven dates in Date Select box if geolocation is successful
 
-    var today;
-    var dateArray = [];
-    var dateOptions = {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit"
-    };
+function success(pos){
+      var lat = pos.coords.latitude;
+      var lng = pos.coords.longitude;
+      console.log("latitude ", lat);
+      console.log("longitude ", lng);
+      var today;
+      var dateArray = [];
 
-    for (i=0 ; i<8 ; i++) {
+      var latlng = new google.maps.LatLng(lat, lng);
+      geocoder.geocode({'location': latlng}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+      console.log(results)
+        if (results[1]) {
+         //formatted address
+         alert(results[0].formatted_address)
+        //find country name
+            for (var i=0; i<results[0].address_components.length; i++) {
+                for (var b=0;b<results[0].address_components[i].types.length;b++) {
+                    if (results[0].address_components[i].types[b] == "country") {
+                    
+                        country = results[0].address_components[i];
+                        break;
+                    }
+                }
+            }
+        //country data
+        alert(country.short_name + " " + country.long_name)
+        } else {
+          alert("No results found");
+        }
+      } else {
+        alert("Geocoder failed due to: " + status);
+      }
+      });
+    
+      for (i=0 ; i<8 ; i++) {
         today = new Date();
         day = today.getDate();
         var olderDate = new Date(today.setDate(day - i)); //Setting Dates
-        
-            dateArray.push(olderDate.toLocaleDateString("en-US", dateOptions));
-        
-      
-    }
-    for (j=7 ; j >=0; j--) {
-        var opt = document.createElement("option");
-        opt.text = dateArray[j];
-        opt.value = j;
-        var select =document.getElementById("dateList");
-        select.appendChild(opt);
-    }
-    select.selectedIndex = 7;
+        if(!(lat == 8.5499495)&&(lng == 76.87785)) {
+            dateArray.push( ('0' + olderDate.getDate()).slice(-2) + '/' + ('0' + (olderDate.getMonth()+1)).slice(-2) + '/' + olderDate.getFullYear());
+        }
+        else {
+          dateArray.push(('0' + (olderDate.getMonth()+1)).slice(-2) + '/' + ('0' + olderDate.getDate()).slice(-2) + '/' +  olderDate.getFullYear());
+        }
+        date = dateArray[i];
+      }
+
+      for (j=7 ; j >=0; j--) {
+          var opt = document.createElement("option");
+          opt.text = dateArray[j];
+          opt.value = j;
+          var select =document.getElementById("dateList");
+          select.appendChild(opt);
+      }
+      select.selectedIndex = 7;
+  }
+
+  function error(err) {
+      console.log('ERROR (' + err.code + '):' + err.message);
+  }
+
+//Function to find user location
+
+function geoFindLocation() {
+  navigator.geolocation.getCurrentPosition(success, error);
 }
 
 document.getElementById("submitBtn").addEventListener("click", function(event){
     event.preventDefault();
     submitStatusForm();
 });
+
+document.getElementById("message").addEventListener("keyup", function(){
+    var description = document.getElementById('message');
+    var counterID = document.getElementById('counter');
+    var maxLimit = 20;
+    textCounter(description, counterID, maxLimit);
+    enableBtn();
+});
+
+//Function to enable/disable SAVE btn
+
+function enableBtn() {
+    if(document.getElementById("message").value != '') {
+      document.getElementById("submitBtn").disabled = false;
+    }
+    else {
+      document.getElementById("submitBtn").disabled = true;
+    }
+}
 
 //Function for validation
 
@@ -97,6 +162,19 @@ function validateFields() {
     return false;
   }
   return true;
+}
+
+// Function to calculate remaining characters 
+
+function textCounter(elDescription, elCounter, elMaxLimit) {
+  var elDescriptionValLength = elDescription.value.replace(/\s/g, '').length;
+  var spaces = elDescription.value.split(' ').length - 1;
+    if(elDescriptionValLength > elMaxLimit ){
+      elDescription.value = elDescription.value.substr(0, elMaxLimit + spaces);
+    }
+    else {
+        elCounter.value = elMaxLimit - elDescriptionValLength;
+    }
 }
 
 //Function to submit form
@@ -111,7 +189,8 @@ function submitStatusForm() {
             hrs = document.getElementById('hours'),
             mins = document.getElementById('minutes'),
             msg = document.getElementById('message');
-
+            
+        // var maxLimit = 10;
 
         var date = dateList.options[dateList.selectedIndex].text,
             dateVal = dateList.options[dateList.selectedIndex].value,
@@ -120,8 +199,10 @@ function submitStatusForm() {
             timeHrs = hrs.options[hrs.selectedIndex].text,
             timeHrsVal = hrs.options[hrs.selectedIndex].value,
             timeMinutes = mins.options[mins.selectedIndex].text,
-            timeMinutesVal = mins.options[mins.selectedIndex].value
+            timeMinutesVal = mins.options[mins.selectedIndex].value,
             description = msg.value;
+
+        // textCounter(description, counter, maxLimit);
         
         showEntry.push({date, project, activity, timeHrs, timeMinutes, description});
 
@@ -141,6 +222,8 @@ function submitStatusForm() {
         }
         document.getElementById('displayLog').innerHTML = setContent;
         clearText();
+        document.getElementById('counter').value = 20;
+        enableBtn();
     }
     
 }
