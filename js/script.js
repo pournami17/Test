@@ -87,7 +87,6 @@ function success(pos){
                 }
             }
         //country data
-        console.log(country);
         console.log(country.short_name + " " + country.long_name);
         } else {
           console.log("No results found");
@@ -101,7 +100,7 @@ function success(pos){
         today = new Date();
         day = today.getDate();
         var olderDate = new Date(today.setDate(day - i)); //Setting Dates
-        if(!(lat == 8.5499495)&&(lng == 76.87785)) {
+        if(country.long_name == "India") {
             dateArray.push( ('0' + olderDate.getDate()).slice(-2) + '/' + ('0' + (olderDate.getMonth()+1)).slice(-2) + '/' + olderDate.getFullYear());
         }
         else {
