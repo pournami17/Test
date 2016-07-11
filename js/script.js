@@ -81,7 +81,7 @@ function success(pos){
                 for (var b=0;b<results[0].address_components[i].types.length;b++) {
                     if (results[0].address_components[i].types[b] == "country") {
                     
-                        country = results[0].address_components[i];
+                      var country = results[0].address_components[i];
                         break;
                     }
                 }
