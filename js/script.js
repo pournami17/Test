@@ -75,7 +75,7 @@ function success(pos){
       console.log(results)
         if (results[0]) {
          //formatted address
-         alert(results[0].formatted_address)
+         console.log(results[0].formatted_address);
         //find country name
             for (var i=0; i<results[0].address_components.length; i++) {
                 for (var b=0;b<results[0].address_components[i].types.length;b++) {
@@ -87,12 +87,13 @@ function success(pos){
                 }
             }
         //country data
-        alert(country.short_name + " " + country.long_name)
+        console.log(country);
+        console.log(country.short_name + " " + country.long_name);
         } else {
-          alert("No results found");
+          console.log("No results found");
         }
       } else {
-        alert("Geocoder failed due to: " + status);
+        console.log("Geocoder failed due to: " + status);
       }
       });
     
